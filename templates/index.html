@@ -1,87 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>House Price Predictor</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg,#4facfe,#00f2fe);
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
 
-<title>House Price Predictor</title>
+        .container{
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            width:350px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.2);
+            text-align:center;
+        }
 
-<style>
+        h1{
+            margin-bottom:20px;
+            color:#333;
+        }
 
-body{
-    font-family: Arial;
-    background: linear-gradient(to right,#4facfe,#00f2fe);
-    text-align:center;
-    margin-top:100px;
-}
+        input{
+            width:100%;
+            padding:10px;
+            margin:8px 0;
+            border-radius:5px;
+            border:1px solid #ccc;
+        }
 
-.container{
-    background:white;
-    padding:40px;
-    border-radius:10px;
-    width:350px;
-    margin:auto;
-    box-shadow:0px 10px 25px rgba(0,0,0,0.2);
-}
+        button{
+            width:100%;
+            padding:12px;
+            background:#4facfe;
+            border:none;
+            color:white;
+            font-size:16px;
+            border-radius:5px;
+            cursor:pointer;
+            margin-top:10px;
+        }
 
-h1{
-    color:#333;
-}
+        button:hover{
+            background:#2d8cf0;
+        }
 
-input{
-    width:90%;
-    padding:10px;
-    margin:10px;
-    border-radius:5px;
-    border:1px solid #ccc;
-}
-
-button{
-    padding:10px 20px;
-    background:#4facfe;
-    color:white;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-    font-size:16px;
-}
-
-button:hover{
-    background:#008cff;
-}
-
-.result{
-    margin-top:20px;
-    font-size:20px;
-    color:green;
-    font-weight:bold;
-}
-
-</style>
-
+        .result{
+            margin-top:20px;
+            font-size:18px;
+            color:green;
+            font-weight:bold;
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>🏠 House Price Predictor</h1>
+    <h1>🏠 House Price Predictor</h1>
 
-<p>Welcome! Enter the details below to predict your house price.</p>
+    <form action="/predict" method="post">
 
-<form action="/predict" method="post">
+        <input type="number" name="area" placeholder="Area (sq ft)" required>
 
-<input type="text" name="size" placeholder="Enter House Size (sq ft)" required>
+        <input type="number" name="bedrooms" placeholder="Bedrooms" required>
 
-<input type="text" name="bedrooms" placeholder="Number of Bedrooms" required>
+        <input type="number" name="bathrooms" placeholder="Bathrooms" required>
 
-<br>
+        <input type="number" name="floors" placeholder="Floors" required>
 
-<button type="submit">Predict Price</button>
+        <input type="number" name="age" placeholder="Age of House (years)" required>
 
-</form>
+        <input type="number" name="parking" placeholder="Parking Spaces" required>
 
-<div class="result">
-{{ prediction_text }}
-</div>
+        <button type="submit">Predict Price</button>
+
+    </form>
+
+    {% if prediction_text %}
+        <div class="result">
+            {{ prediction_text }}
+        </div>
+    {% endif %}
 
 </div>
 

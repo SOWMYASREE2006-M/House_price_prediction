@@ -1,32 +1,22 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-import joblib
-file_path = input("Enter dataset path: ")
-data = pd.read_csv(file_path)
+import pickle
 
-print("Dataset Preview:")
-print(data.head())
+# Load dataset
+data = pd.read_csv("data/house_data.csv")
 
-# automatically select features and target
-X = data.iloc[:, :-1]   # all columns except last
-y = data.iloc[:, -1]    # last column
+# Features
+X = data[['area','bedrooms','bathrooms','floors','age','parking']]
 
-# split dataset
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
+# Target
+y = data['price']
 
-# create model
+# Train model
 model = LinearRegression()
+model.fit(X, y)
 
-# train model
-model.fit(X_train, y_train)
+# Save model
+with open("model.pkl", "wb") as f:
+    pickle.dump(model, f)
 
-# check accuracy
-score = model.score(X_test, y_test)
-print("Model Accuracy:", score)
-
-# save model
-joblib.dump(model, "model.pkl")
-print("Model trained and saved!")
+print("Model trained successfully")

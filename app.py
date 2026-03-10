@@ -17,7 +17,14 @@ def predict():
 
     size = float(request.form["size"])
     bedrooms = float(request.form["bedrooms"])
+    bathrooms = int(request.form['bathrooms'])
+floors = int(request.form['floors'])
+age = int(request.form['age'])
+parking = int(request.form['parking'])
 
+prediction = model.predict([[area, bedrooms, bathrooms, floors, age, parking]])
+
+result = f"Predicted House Price: ${prediction[0]:,.2f}"
     prediction = model.predict([[size, bedrooms]])
 
     result = f"Here is your total predicted house price: ₹ {round(prediction[0],2)}"
